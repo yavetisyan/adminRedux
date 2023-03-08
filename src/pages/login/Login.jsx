@@ -14,10 +14,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [currentUser, setCurrentUser] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         const user = userCred.user;
         console.log(user);
@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem("user")));
+    setCurrentUser(JSON.parse(localStorage.getItem("user")) || null);
   }, []);
 
   useEffect(() => {

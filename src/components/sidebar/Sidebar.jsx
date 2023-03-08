@@ -11,15 +11,17 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { email } from "../../store/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { removeUser } from "../../store/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const emailID = useSelector(email);
   const navigate = useNavigate();
-  const { disp } = useContext(DarkModeContext);
+  //const { disp } = useContext(DarkModeContext);
   const dispatch = useDispatch();
   const handleLogout = (e) => {
     e.preventDefault();
@@ -31,7 +33,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">{emailID}</span>
         </Link>
       </div>
       <hr />
