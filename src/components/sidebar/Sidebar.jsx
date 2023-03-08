@@ -24,6 +24,7 @@ const Sidebar = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(removeUser());
+    localStorage.removeItem("user");
     navigate("login");
   };
   return (

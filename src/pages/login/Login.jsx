@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import "./login.scss";
@@ -12,6 +12,7 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -24,9 +25,10 @@ const Login = () => {
           setUser({
             email: user.email,
             userID: user.uid,
-            token: user.token,
+            token: user.accessToken,
           })
         );
+        setCurrentUser(user.uid);
         navigate("/");
       })
       .catch((error) => {
@@ -35,6 +37,22 @@ const Login = () => {
         // ..
       });
   };
+
+  useEffect(() => {
+    setCurrentUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(currentUser));
+    dispatch(
+      setUser({
+        email: currentUser?.email,
+        userID: currentUser?.uid,
+        token: currentUser?.accessToken,
+      })
+    );
+  }, [currentUser]);
+
   return (
     <div className="login">
       <form onSubmit={handleLogin}>

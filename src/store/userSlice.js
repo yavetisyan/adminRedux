@@ -4,7 +4,7 @@ const initialState = {
   email: null,
   token: null,
   userID: null,
-  isAuth: true,
+  isAuth: false,
 };
 
 const userSlice = createSlice({
@@ -14,7 +14,7 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.email = action.payload.email;
       state.isAuth = true;
-      state.token = action.payload.accessToken;
+      state.token = action.payload.token;
       state.userID = action.payload.userID;
     },
     removeUser(state) {
